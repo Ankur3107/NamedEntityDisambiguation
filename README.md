@@ -1,4 +1,4 @@
-ac297r-capstone-project
+Kensho
 ==============================
 
 AC297r Capstone
