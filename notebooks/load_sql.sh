@@ -1,0 +1,1 @@
+sqlite3 ../data/kensho.db < load_data.sql

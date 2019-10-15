@@ -1,0 +1,840 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Midterm 1-EDA}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsection{Fixing Redirects}\label{fixing-redirects}
+
+    We load in the raw dataset of wikipedia pages that contain information
+about the page.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{wikipages} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/raw/enwiki\PYZus{}20190801.page.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{wikipages}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}     page\_id       page\_title  page\_is\_redirect  page\_len  wikidata\_numeric\_id  \textbackslash{}
+        0     31880         Universe                 0    125156                  1.0   
+        1  24437894           Boston                 0    188674                100.0   
+        2     12027            Gabon                 0     60678               1000.0   
+        3   1313683  Dutch\_Wikipedia                 0      8325              10000.0   
+        4   4037258   Cadier\_en\_Keer                 0      2584             100000.0   
+        
+           views  
+        0  37605  
+        1  60038  
+        2  24767  
+        3   1203  
+        4     51  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{wikipages}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} (14730178, 6)
+\end{Verbatim}
+            
+    We noticed that in the raw dataset, 8.7 million pages do not have
+corresponding wikidata\_numeric\_ids! This didn't sound right at all.
+However, we noticed that many pages that are redirect pages do not have
+a corresponding wikidata\_numeric\_id.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{wikipages}\PY{o}{.}\PY{n}{wikidata\PYZus{}numeric\PYZus{}id}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 8718368
+\end{Verbatim}
+            
+    We noticed that many pages that are redirect pages do not have a
+corresponding wikidata\_numeric\_id.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{wikipages}\PY{p}{[}\PY{n}{wikipages}\PY{o}{.}\PY{n}{page\PYZus{}is\PYZus{}redirect} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}            page\_id                                         page\_title  \textbackslash{}
+        14730173  24181285                                         Est.Domain   
+        14730174  18236087                                               .p3t   
+        14730175   7358181                                     Ceti\_Alpha\_Six   
+        14730176    215608                                      Pascals\_Wager   
+        14730177  49820527  Swimming\_at\_the\_2005\_World\_Aquatics\_Championsh{\ldots}   
+        
+                  page\_is\_redirect  page\_len  wikidata\_numeric\_id  views  
+        14730173                 1        24                  NaN      0  
+        14730174                 1        51                  NaN      0  
+        14730175                 1       139                  NaN      0  
+        14730176                 1        85                  NaN      0  
+        14730177                 1       271                  NaN      0  
+\end{Verbatim}
+            
+    We load in the raw dataset about redirect pages to further investigate.
+Indeed, we see that while these redirect pages (source pages) do not
+have a corresponding wikidata\_numeric\_id, the pages they redirect to
+(target pages) do.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{redirect} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/raw/enwiki\PYZus{}20190801.redirect.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{redirect}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    source\_page\_id  target\_page\_id  \textbackslash{}
+         0        39378878        38421275   
+         1        25917412         2238902   
+         2         3245614         1941596   
+         3        43321056        32960669   
+         4        13307706          369596   
+         
+                                            source\_page\_title  \textbackslash{}
+         0                                    Infocom\_Network   
+         1                                    Canyonero\_(car)   
+         2                                   Chief\_Dull\_Knife   
+         3  National\_Register\_of\_Historic\_Places\_in\_Early\_{\ldots}   
+         4                      The\_New\_York\_Botanical\_Garden   
+         
+                                            target\_page\_title  
+         0                                         TradeIndia  
+         1                       The\_Last\_Temptation\_of\_Krust  
+         2                               Morning\_Star\_(chief)  
+         3  National\_Register\_of\_Historic\_Places\_listings\_{\ldots}  
+         4                          New\_York\_Botanical\_Garden  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Example of source page not having a wikidata\PYZus{}numeric\PYZus{}id but a target page does.}
+         \PY{n}{wikipages}\PY{p}{[}\PY{n}{wikipages}\PY{o}{.}\PY{n}{page\PYZus{}id} \PY{o}{==} \PY{n}{redirect}\PY{p}{[}\PY{n}{redirect}\PY{o}{.}\PY{n}{source\PYZus{}page\PYZus{}id} \PY{o}{==} \PY{l+m+mi}{24181285}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}           page\_id  page\_title  page\_is\_redirect  page\_len  \textbackslash{}
+         3839571  24179837  EstDomains                 0      6606   
+         
+                  wikidata\_numeric\_id  views  
+         3839571            5399970.0     57  
+\end{Verbatim}
+            
+    We also see examples where a target page not having a
+wikidata\_numeric\_id, but one of their source pages does.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{wikipages}\PY{p}{[}\PY{n}{wikipages}\PY{o}{.}\PY{n}{page\PYZus{}id} \PY{o}{==} \PY{l+m+mf}{325726.0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}          page\_id               page\_title  page\_is\_redirect  page\_len  \textbackslash{}
+         6040736   325726  Social\_network\_analysis                 0     47818   
+         
+                  wikidata\_numeric\_id  views  
+         6040736                  NaN  10825  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}All source pages of this target page}
+         \PY{n}{redirect}\PY{p}{[}\PY{n}{redirect}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{325726}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}          source\_page\_id  target\_page\_id                source\_page\_title  \textbackslash{}
+         1717720         1559348          325726          Social\_Network\_Analysis   
+         1721329        12567496          325726      Social\_networking\_potential   
+         1722555        20645616          325726  Cascade\_(Social\_Network\_Theory)   
+         1724358        17661070          325726  Social\_Network\_Change\_Detection   
+         1727934        17576720          325726  Social\_network\_change\_detection   
+         1730560        39596224          325726    Networks\_in\_Political\_Science   
+         1732941        14825621          325726      Social\_Networking\_Potential   
+         
+                        target\_page\_title  
+         1717720  Social\_network\_analysis  
+         1721329  Social\_network\_analysis  
+         1722555  Social\_network\_analysis  
+         1724358  Social\_network\_analysis  
+         1727934  Social\_network\_analysis  
+         1730560  Social\_network\_analysis  
+         1732941  Social\_network\_analysis  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}This source page does not have wikidata\PYZus{}numeric\PYZus{}id}
+         \PY{n}{wikipages}\PY{p}{[}\PY{n}{wikipages}\PY{o}{.}\PY{n}{page\PYZus{}id} \PY{o}{==} \PY{l+m+mi}{1559348}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}          page\_id               page\_title  page\_is\_redirect  page\_len  \textbackslash{}
+         7291787  1559348  Social\_Network\_Analysis                 1       102   
+         
+                  wikidata\_numeric\_id  views  
+         7291787                  NaN     20  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}But this source page does}
+         \PY{n}{wikipages}\PY{p}{[}\PY{n}{wikipages}\PY{o}{.}\PY{n}{page\PYZus{}id} \PY{o}{==} \PY{l+m+mi}{17576720}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}           page\_id                       page\_title  page\_is\_redirect  \textbackslash{}
+         5421981  17576720  Social\_network\_change\_detection                 1   
+         
+                  page\_len  wikidata\_numeric\_id  views  
+         5421981        37            7551269.0    318  
+\end{Verbatim}
+            
+    Thus, we need to link these problematic source/target pages with the
+wikidata\_numeric\_id of their target/source pages.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}This code cell fixes the problematic behavior mentioned. }
+         
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Get target page id for all }
+         \PY{n}{target\PYZus{}page\PYZus{}ids} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{redirect}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                                   \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Pages that do not appear in redirect have both source\PYZus{}page\PYZus{}id and target\PYZus{}page\PYZus{}id as null after join. These are just page\PYZus{}id for both}
+         \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{target\PYZus{}page\PYZus{}ids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{target\PYZus{}page\PYZus{}ids} \PY{o}{=} \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{target\PYZus{}page\PYZus{}ids}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{wikipages}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                   \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}
+                                                             \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}title\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}title\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}
+                                                                \PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}There are some instances of source page having wikidata instead of target.}
+         \PY{c+c1}{\PYZsh{}Set target page to have source page wikidata for those}
+         \PY{n}{wikidata\PYZus{}ids} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{wikidata\PYZus{}ids}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}
+                                                             \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{wikipages\PYZus{}cleaned} \PY{o}{=} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now only 40k pages have missing wikidata\_numeric\_id!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{wikidata\PYZus{}numeric\PYZus{}id}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 40693
+\end{Verbatim}
+            
+    75\% of the articles still without wikidata item have fewer than 10
+views. As such, most of these pages are insignificant and should pose no
+problem to our analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{wikipages\PYZus{}cleaned}\PY{p}{[}\PY{n}{wikipages\PYZus{}cleaned}\PY{o}{.}\PY{n}{wikidata\PYZus{}numeric\PYZus{}id}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} count    40693.000000
+         mean        34.924090
+         std        407.577772
+         min          0.000000
+         25\%          0.000000
+         50\%          0.000000
+         75\%         10.000000
+         max      50810.000000
+         Name: views, dtype: float64
+\end{Verbatim}
+            
+    \subsection{Exploration of Knowledge
+Graph}\label{exploration-of-knowledge-graph}
+
+    Next, we explore the raw Wikidata knowledge graph.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{triplets} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/raw/wikidata\PYZus{}20190805.qpq\PYZus{}item\PYZus{}statements.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{triplets}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{entities} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/raw/wikidata\PYZus{}20190805.item.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{entities}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Looking at the outdegree summary statistics, we see that 75\% of
+entities have 5 or fewer edges going out. However, at the same time, we
+see that the max is quite large with 8319 degrees!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{out\PYZus{}degree} \PY{o}{=} \PY{n}{triplets}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{out\PYZus{}degree} \PY{o}{=} \PY{n}{out\PYZus{}degree}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{source\PYZus{}item\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{out\PYZus{}degree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{out\PYZus{}degree} \PY{o}{=} \PY{n}{out\PYZus{}degree}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{out\PYZus{}degree} \PY{o}{=} \PY{n}{out\PYZus{}degree}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{out\PYZus{}degree}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} count    5.641113e+07
+         mean     6.793780e+00
+         std      1.339614e+01
+         min      1.000000e+00
+         25\%      2.000000e+00
+         50\%      3.000000e+00
+         75\%      5.000000e+00
+         max      8.319000e+03
+         Name: out\_degree, dtype: float64
+\end{Verbatim}
+            
+    Looking at the top out degree entities, we see that many of them come
+from scholarly articles, with many biology/medicine related. Indeed, the
+highest degree entity,
+\texttt{BayGenomics:\ a\ resource\ of\ insertional\ mutations\ in\ mouse\ embryonic\ stem\ cells}
+has an edge to every cell line mentioned!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{top\PYZus{}out\PYZus{}degree} \PY{o}{=} \PY{n}{out\PYZus{}degree}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{top\PYZus{}out\PYZus{}degree} \PY{o}{=} \PY{n}{top\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{entities}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{top\PYZus{}out\PYZus{}degree}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}label\PYZus{}short}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{top\PYZus{}out\PYZus{}degree}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{top\PYZus{}out\PYZus{}degree}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}label\PYZus{}short}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{out\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f02cef68c90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We see a similar story for indegree: 75\% of entities have 9 or fewer
+edges going in. The max indegree is almost 22 million!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{in\PYZus{}degree} \PY{o}{=} \PY{n}{triplets}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+         \PY{n}{in\PYZus{}degree} \PY{o}{=} \PY{n}{in\PYZus{}degree}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target\PYZus{}item\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{in\PYZus{}degree}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{in\PYZus{}degree} \PY{o}{=} \PY{n}{in\PYZus{}degree}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{in\PYZus{}degree} \PY{o}{=} \PY{n}{in\PYZus{}degree}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    The highest indegree entity is scholarly article!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{top\PYZus{}in\PYZus{}degree} \PY{o}{=} \PY{n}{in\PYZus{}degree}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{top\PYZus{}in\PYZus{}degree} \PY{o}{=} \PY{n}{top\PYZus{}in\PYZus{}degree}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{entities}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{top\PYZus{}in\PYZus{}degree}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}    target\_item\_id  in\_degree        id                  en\_label  \textbackslash{}
+         0        13442814   21910388  13442814         scholarly article   
+         1               5    5837659         5                     human   
+         2            1860    4600258      1860                   English   
+         3         4167836    4465143   4167836        Wikimedia category   
+         4         6581097    3913958   6581097                      male   
+         5           16521    2596501     16521                     taxon   
+         6            7432    2198219      7432                   species   
+         7              30    1968964        30  United States of America   
+         8            8054    1801629      8054                   protein   
+         9            7187    1609904      7187                      gene   
+         
+                                               en\_description              enwiki\_title  
+         0  article in an academic publication, usually pe{\ldots}                       NaN  
+         1  common name of Homo sapiens, unique extant spe{\ldots}                     Human  
+         2  West Germanic language originating in England {\ldots}          English language  
+         3  use with 'instance of' (P31) for Wikimedia cat{\ldots}  Wikipedia:Categorization  
+         4                   human who is male (use with P21)                       NaN  
+         5  group of one or more organism(s), which a taxo{\ldots}                     Taxon  
+         6  one of the basic units of biological classific{\ldots}                   Species  
+         7                  federal republic in North America             United States  
+         8  biological molecule consisting of chains of am{\ldots}                   Protein  
+         9     basic physical and functional unit of heredity                      Gene  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{top\PYZus{}in\PYZus{}degree}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f02ceefe4d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{in\PYZus{}degree}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}degree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} count    2.189076e+07
+         mean     1.750715e+01
+         std      5.276517e+03
+         min      1.000000e+00
+         25\%      1.000000e+00
+         50\%      3.000000e+00
+         75\%      9.000000e+00
+         max      2.191039e+07
+         Name: in\_degree, dtype: float64
+\end{Verbatim}
+            
+    From exploration of the full graph we see that it would not be
+computationally feasible to use the full graph. As such we made a
+smaller graph consisting of only relations between wikipedia pages.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{NER Displacy}\label{ner-displacy}
+
+    An example of NER with entities tagged.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{spacy}
+         \PY{k+kn}{from} \PY{n+nn}{spacy} \PY{k}{import} \PY{n}{displacy}
+         
+         \PY{n}{ner} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}core\PYZus{}web\PYZus{}sm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sample\PYZus{}text} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Apple Inc. is an American multinational technology company headquartered in Cupertino, California, that designs, develops, and sells consumer electronics, computer software, and online services. It is considered one of the Big Four tech companies along with Amazon, Google, and Facebook. The company}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s hardware products include the iPhone smartphone, the iPad tablet computer, the Mac personal computer, the iPod portable media player, the Apple Watch smartwatch, the Apple TV digital media player, the AirPods wireless earbuds and the HomePod smart speaker.}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{displacy}\PY{o}{.}\PY{n}{render}\PY{p}{(}\PY{n}{ner}\PY{p}{(}\PY{n}{sample\PYZus{}text}\PY{p}{)}\PY{p}{,} \PY{n}{jupyter}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Node2vec Graph Embeddings}\label{node2vec-graph-embeddings}
+
+    In deep learning approaches, it would be helpful to represent our
+knowledge graphs in a continuous vector space. After doing a review of
+graph embeddings approaches, node2vec seemed like a reasonable method.
+In short, node2vec uses a random walk to traverse the graph to learn the
+embeddings. Each node is then represented as a vector. In particular,
+this approach is useful as it allows us to balance the trade-off between
+capturing the local information in a graph and the global structure of
+the knowledge graph.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{gensim}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Word2Vec}
+        \PY{n}{model} \PY{o}{=} \PY{n}{Word2Vec}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/graph\PYZus{}embedding\PYZus{}100000.model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{wikidata} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/wikipages\PYZus{}cleaned.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{wikidata}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{id\PYZus{}title}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{idx}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Given a wikidata ID, extract the title\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wikidata\PYZus{}numeric\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n+nb}{int}\PY{p}{(}\PY{n}{idx}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target\PYZus{}page\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    Graph embedding of 100000 Wikidata entries projected onto 2 dimensions
+through PCA. This captures the structure and topology of the knowledge
+graph in 2D.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{plotly\PYZus{}X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{plotly\PYZus{}X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st and 2nd PCs of Graph Embeddings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Word2Vec Entity Text
+Embeddings}\label{word2vec-entity-text-embeddings}
+
+    We also did a simple word2vec text embedding on the named entities from
+NER (5000 Wikipedia text articles).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{entity\PYZus{}model} \PY{o}{=} \PY{n}{Word2Vec}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/entity\PYZus{}embedding.model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{plotly\PYZus{}X\PYZus{}entity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{plotly\PYZus{}X\PYZus{}entity}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st and 2nd PCs of Entity Text Embeddings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd PC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../images/entity2vec.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
