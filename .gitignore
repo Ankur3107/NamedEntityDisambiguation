@@ -1,3 +1,7 @@
+# Others
+*.prop
+*.gz
+
 # Data folder
 data/
 
