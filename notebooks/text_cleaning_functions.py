@@ -59,6 +59,7 @@ def text_preprocessing(data, regex_ls, unicode_dict):
     under the columns 'link_offset_start', and 'link_offset_end'.
     """
     import re
+    from tqdm import tqdm
     data = data.copy()
     
     # existing data has some wrong link offsets initially, these have additional spaces in front of the link anchors
@@ -71,7 +72,7 @@ def text_preprocessing(data, regex_ls, unicode_dict):
     data.loc[:,'link_anchor'] = data.apply(lambda i: replace_accents(i.link_anchor, unicode_dict), axis=1)
     
     # data cleaning while keeping track of link offsets
-    for sid in data['source_section_id'].unique():
+    for sid in tqdm(data['source_section_id'].unique()):
         replace_section = data[data['source_section_id'] == sid]
         text = replace_section['section_text'].iloc[0]
         # list of original link offsets
@@ -202,13 +203,13 @@ def extract_entities_and_labels(data):
     true_entity = []
     ner_entity = []
     
+    nlp = spacy.load('en_core_web_sm')
+    nlp.tokenizer = WhitespaceTokenizer(nlp.vocab)
     # for each section of text
     for sid in data['source_section_id'].unique():
         text = data.loc[data['source_section_id']==sid, 'section_text'].iloc[0]   
         
         # tokenizer+NER
-        nlp = spacy.load('en_core_web_sm')
-        nlp.tokenizer = WhitespaceTokenizer(nlp.vocab)
         tokenized_text = nlp(text)
         
         # NER entities
