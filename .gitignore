@@ -1,4 +1,6 @@
 context2vec
+*.npy
+*.h5
 
 # Others
 *.prop

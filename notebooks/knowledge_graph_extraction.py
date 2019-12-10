@@ -6,6 +6,9 @@ from collections import defaultdict
 from collections.abc import Iterable
 import operator
 
+
+#Functions for baseline model using direct edges
+
 def conduct_sql_query(db, query):
     #Conducts SQL query and returns results as DataFrame.
     conn = sqlite3.connect(db)
