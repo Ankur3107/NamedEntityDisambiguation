@@ -1,7 +1,11 @@
 Kensho
 ==============================
 
-AC297r Capstone
+In this project, we focus on the task of Named Entity Disambiguation/Linking boosted with the use of Knowledge Graphs.
+
+A Medium post on our project can be found here: https://medium.com/p/1e4aaa7e1a2d
+
+Instructions on how to run the code can be found in the notebooks README file. 
 
 Project Organization
 ------------
@@ -26,7 +30,7 @@ Project Organization
     │   └── partners-reports
     └── test_project.py
 
-Project Organization
+Team Members
 ------------
 - Brian Lin
 - Sheng Shiong (Shane) Ong
