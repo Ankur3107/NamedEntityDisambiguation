@@ -1,4 +1,4 @@
-Please run the notebooks in the following order in order to recreate the datasets used for the final pipeline. Alternatively, we provide the datasets needed to run the pipeline here: 
+Please run the notebooks in the following order in order to recreate the datasets used for the final pipeline. Alternatively, we provide the datasets needed to run the pipeline here: https://drive.google.com/file/d/1DZCsCTe_PFN1f2mDxY3YTrqC2D8y69z6/view?usp=sharing
 
 For the second approach, please move the data to the relevant folder with respect to the notebook folder as we list below.
 
