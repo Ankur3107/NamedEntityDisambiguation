@@ -114,7 +114,6 @@ Creates:
     * $kg_dir/test.txt
     * $kg_dir/entities.dict
     * $kg_dir/relations.dict
-
 * ../data/knowledge_graph_data/idx2id_edge.pickle
 * ../data/knowledge_graph_data/idx2id_entity.pickle
 * ../data/knowledge_graph_data/id2text_edge.pickle
