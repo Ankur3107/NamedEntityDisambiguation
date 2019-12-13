@@ -15,9 +15,6 @@ from datasketch import MinHash, MinHashLSHForest
 with open('../data/candidate_selection/anchors_dict.pkl', 'rb') as f:
     anchors_dict = pickle.load(f)
     anchors_dict = defaultdict(lambda: [], anchors_dict)
-
-with open('../data/mod_anchor_candidates.pkl', 'rb') as f:
-    candidates = pickle.load(f)
     
 with open('../data/candidate_selection/lsh_forest.pkl', 'rb') as f:
     forest = pickle.load(f) 
@@ -28,10 +25,6 @@ with open('../data/knowledge_graph_data/id2idx_entity.pickle', 'rb') as f:
 
 with open('../data/unicode_dict.pkl', 'rb') as f:
     unicode_dict = pickle.load(f)
-
-# get corresponding wikipedia article title
-with open('../data/wiki_id_to_page.pkl', 'rb') as f:
-    wiki_id_to_page = pickle.load(f)
     
 with open("../data/word2idx/word2idx.pkl", "rb") as f:
     # Map any unknown word to UNKNOWN, which has index 1

@@ -319,3 +319,79 @@ def drop_entities(ner_entity, true_entity):
     # drop document if there is no entity
     ner_entity, true_entity = drop_no_entities(ner_entity, true_entity)
     return ner_entity, true_entity
+
+def extract_entities_helper(section, tokenized_text):
+    """
+    Helper function for extract_entities
+    """
+    import numpy as np
+    tokenized_vector = np.zeros(len(tokenized_text))
+    # get span object to match characters with tokens
+    char_to_token = tokenized_text.char_span(section.link_offset_start, section.link_offset_end)
+    
+    # label corresponding tokens if there is an anchor link
+    # to match anchor text rather than anchor link
+    if not char_to_token:
+        char_tokens = np.array([token.idx for token in tokenized_text])
+        # to account for tokens at end of text
+        if np.where(char_tokens >= section.link_offset_end)[0].size > 0:
+            closest_start_token = char_tokens[np.where(char_tokens <= section.link_offset_start)[0][-1]]
+            closest_end_token = char_tokens[np.where(char_tokens >= section.link_offset_end)[0][0]]-1
+            char_to_token = tokenized_text.char_span(closest_start_token, closest_end_token)
+            tokenized_vector[char_to_token.start:char_to_token.end] = 1
+        else:
+            tokenized_vector[np.where(char_tokens <= section.link_offset_start)[0][-1]:-1] = 1
+    else:
+        tokenized_vector[char_to_token.start:char_to_token.end] = 1 
+        
+    # extract other relevant information
+    
+    data = pd.Series({'text': section.section_text.lower(), 
+                      'link_anchor': section.link_anchor.lower(), 
+                      'link_start': section.link_offset_start, 
+                      'link_end': section.link_offset_end, 
+                      'target_wikidata': section.target_wikidata_numeric_id, 
+                      'tokenized_vector': tokenized_vector})
+    return data
+
+
+
+def extract_entities(data):
+    """
+    Given a data of wikipedia articles, extract an item in the format of a list of lists.
+    Each entry in the outer list corresponds to a document. 
+    For each document (inner list), the first entry is the actual text document, while the second entry is a dictionary.
+    The dictionary has the true entities (wikidata links), 
+    start characters, end characters, and true Wikidata entry IDs as the key of the dictionary.
+    The dictionary has a vector of zeros, with ones at the positions of the corresponding token positions of the true entities
+    i.e. ['Apple is a good company', {('Apple', 0, 6, 0101102086): [1,0,0,0,0]}]
+    """
+    import spacy
+    import numpy as np
+    import re
+    from tqdm import tqdm
+    true_entity = []
+    
+    
+    nlp = spacy.load('en_core_web_sm')
+    nlp.tokenizer = WhitespaceTokenizer(nlp.vocab)
+    
+    # for each section of text
+    for sid in tqdm(data['source_section_id'].unique()):
+        text = data.loc[data['source_section_id']==sid, 'section_text'].iloc[0]   
+        
+        # tokenizer
+        tokenized_text = nlp(text, disable=['parser', 'tagger', 'ner'])
+            
+        # actual wikidata links entities     
+        # extract relevant data from dataframe 
+        entity_data = (data[data['source_section_id']==sid]
+                       .apply(lambda i: extract_entities_helper(i, tokenized_text), axis=1))
+        
+        # collect for each section
+        true_entity.append(entity_data)
+    
+    # full dataframe
+    true_entity = pd.concat(true_entity, ignore_index=True)
+    
+    return true_entity
