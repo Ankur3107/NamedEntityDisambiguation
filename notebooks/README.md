@@ -108,7 +108,7 @@ Uses:
 * ../data/wikipages_triplets.csv
 
 Creates:
-* Under knowledge graph repo $kg_dir:
+* Under knowledge graph repo [$kg_dir](https://github.com/dmlc/dgl/tree/master/apps/kg):
     * $kg_dir/train.txt
     * $kg_dir/valid.txt
     * $kg_dir/test.txt
