@@ -3,7 +3,7 @@ Kensho
 
 In this project, we focus on the task of Named Entity Disambiguation/Linking boosted with the use of Knowledge Graphs.
 
-A Medium post on our project can be found here: https://medium.com/p/1e4aaa7e1a2d
+A Medium post on our project can be found here: https://towardsdatascience.com/named-entity-disambiguation-boosted-with-knowledge-graphs-4a93a94381ef
 
 Instructions on how to run the code can be found in the notebooks README file. 
 
