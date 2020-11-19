@@ -1,4 +1,4 @@
-Kensho
+Kensho | Named Entity Disambiguation
 ==============================
 
 In this project, we focus on the task of Named Entity Disambiguation/Linking boosted with the use of Knowledge Graphs.
